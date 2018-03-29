@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript">
+	var a=angular.module("App",[]);
+	a.controller("check",function($scope){
+		$scope.cost=0;
+		$scope.map={'Mangalore':150,'Wayanad':250,'Ooty':350,'Mysore':500}
+		$scope.calculate=function(){
+			$scope.cost=$scope.place*$scope.noOfPeople;
+		}
+		/* $scope.checkpassword=function(){
+			if($scope.password1==$scope.password2)
+				$scope.flag="passwords are same";
+			else
+				$scope.flag="password dont match";
+		}  */
+	})
+</script>
+</head>
+<body ng-app="App" ng-controller="check">
+	<!-- <label>Enter Password</label>
+	<input type="password" ng-model="password1">
+	<label>Confirm Password</label>
+	<input type="password" ng-model="password2" ng-blur="checkpassword()">
+	{{flag}} -->
+	<!-- <label> Select the place to visit</label>
+	<label class="radio-inline" ng-repeat="(k,v) in map">
+		<input type="radio" ng-model="$parent.place" ng-value="v">{{k}}
+	</label>
+	<br>
+	<label > Enter number of people</label>
+	<input type="number" ng-model="$parent.noOfPeople" ng-change="calculate()">
+		<p>{{cost}}</p> -->
+	
+	{{ 100 | currency }}
+	<br>
+	{{ 100 | currency : "Rs." : 3 }}
+	<br>
+	{{100000.90 | currency : "Rs." : 0 }}
+	<br>
+	
+	<label>Enter money</label>
+	<input type="number" ng-model="userInputNumber">
+	<br>
+	{{userInputNumber | currency : "Rs." : 1 }}
+	<br>
+	{{ 1399323623006 | date }}
+	<br>
+	{{ "2016-05-06T09:06:55.123Z" | date : "dd MMMM yy HH 'hr' mm 'min' ss 'seconds' sss 'milliseconds'" }}
+	<br>
+	{{ "2001-05-06" | date }}
+	<br>
+	This is med {{ "2001-05-06" | date  }}
+	<br>
+	{{ "0001-05-06" | date }}
+	<br>
+	<label>Enter date</label>
+	<input type="date" ng-model="userInputDate">
+	<br>
+	{{userInputDate | date : "d-M-yy"}}
+	<br>
+	{{ 'abc' | uppercase }}
+	<br>
+	{{ 'ABC' | lowercase }}
+	<br>
+	<input type="text" ng-model="userInputLetters">
+	<br>
+	{{ userInputLetters | uppercase }}
+	<br>
+	{{ userInputLetters | lowercase }}
+	{{ 'Infinity' | number }}
+	<br>
+	{{ '-Infinity' | number }}
+</body>
+</html>
