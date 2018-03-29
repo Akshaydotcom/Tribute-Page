@@ -4,18 +4,35 @@
 <meta charset="ISO-8859-1">
 <title>The Flash</title>
 </head>
-<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
 <link href="bootstrap.css" rel="stylesheet">
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="bootstrap.js"></script>
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript" src="angular-route.js"></script>
+<script type="text/javascript">
+	var a=angular.module("App",['ngRoute'])
+	a.controller("cntrl",function($scope,$routeParams){
+		$scope.call=function(){
+		if($routeParams.bname=="lol")
+			$scope.message="Lol";
+		else
+			$scope.message="lmao";
+		console.log($scope.message);
+		}
+	})
+	a.config(function($routeProvider){
+		$routeProvider.when('/origin/:bname',{
+			templateUrl:"Origin.html",
+			controller:"cntrl"})
+			.otherwise({redirectTo:'/'})
+	})
+</script>
 <style>
 #Title2{
-	font-family:Lobster,Monospace,Verdana;
+	font-family:Monospace,Verdana;
 }
 body{
 	background-image:url("Background.jpg");
-	background-repeat:no repeat;
 	background-size:100%;
 }
 #Title3{
@@ -27,7 +44,6 @@ body{
 	border:solid;
 }
 #para1{
-	font-family:Lobster;
 	font-size:20px;	
 }
 #img2{
@@ -36,10 +52,10 @@ body{
 	height:400px;
 }
 </style>
-<body>
+<body ng-app="App">
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
-			<a href="#" class="navbar-brand" id="Title2"> The Flash</a>
+			<a href="#/Index.html" class="navbar-brand" id="Title2"> The Flash</a>
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#id221">
 			<span class="icon-bar"></span><!-- Origins -->
 			<span class="icon-bar"></span><!-- TV Appearances -->
@@ -49,7 +65,7 @@ body{
 		</div>
 		<div class="collapse navbar-collapse" id="id221">
 			<ul class="nav navbar-nav">
-				<li><a href="Origin.html">Origins</a></li>
+				<li><a href="#/origin/:lol">Origins</a></li>
 				<li><a href="#">TV Appearances</a></li>
 				<li><a href="#">Film Appearances</a></li>
 				<li><a href="#">Games</a></li>
@@ -59,32 +75,35 @@ body{
 			</ul>
 		</div>
 	</nav>	
-	<div class="col-md-offset-1 col-md-5 col-xs-offset-1 col-xs-10">
-		<img src="Project-TheFlashWiki.jpg" class="img-responsive" id="img1">
-	</div>
-	<div class="col-md-offset-1 col-md-5 col-xs-offset-1 col-xs-10" >
-		<p id="para1">The superhero you see here is none other than the one and only Flash. For those of you who don't know him, (I am judging you so hard right now), lemme give you a brief insight.
-		The Flash is one of main founders of Justice League, of the DC comics Universe, and his most notable powers include the ability to move/run at incredible speeds, along with a good healing factor, 
-		which keeps him alive and kicking at any point of the storyline. However the most underrated ability he possesses is the ability to think and predict the outcome of any event within an attosecond. 
-		An attosecond is the minute amount of time taken by light to move from one atom to another....Yeah, you read that right, from one atom to another. 
-		</p>
-	</div>
-	<div class="row">
-		<div class="col-md-6 col-md-offset-1 col-md-5 col-xs-12">
-			<img src="the-flash-through-the-years.jpg" class="img-responsive" id="img2">
+	 <div ng-view></div> 
+	
+		<div class="col-md-offset-1 col-md-5 col-xs-offset-1 col-xs-10">
+			<img src="Project-TheFlashWiki.jpg" class="img-responsive" id="img1">
 		</div>
-		<div class="col-md-6 col-md-offset-1 col-md-5 col-xs-12">
-		<br>
-		<br>
-			<p id="para1">As you can imagine, the mantle of the Flash, has been taken up by many characters in the DC Universe. The characters to take the Flash's mantle are</p> 
-			<ol>
-				<li>Jay Garrick</li>
-				<li>Barry Allen</li>
-				<li>Wally West</li>
-				<li>Bart Allen</li>
-			</ol>
-			<p id="para1">For more info on each of their origins, <a href="Origin.html">Click Here</a></p>
+		<div class="col-md-offset-1 col-md-5 col-xs-offset-1 col-xs-10" >
+			<p id="para1">The superhero you see here is none other than the one and only Flash. For those of you who don't know him, (I am judging you so hard right now), lemme give you a brief insight.
+			The Flash is one of main founders of Justice League, of the DC comics Universe, and his most notable powers include the ability to move/run at incredible speeds, along with a good healing factor, 
+			which keeps him alive and kicking at any point of the storyline. However the most underrated ability he possesses is the ability to think and predict the outcome of any event within an attosecond. 
+			An attosecond is the minute amount of time taken by light to move from one atom to another....Yeah, you read that right, from one atom to another. 
+			</p>
 		</div>
-	</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-1 col-md-5 col-xs-12">
+				<img src="the-flash-through-the-years.jpg" class="img-responsive" id="img2">
+			</div>
+			<div class="col-md-6 col-md-offset-1 col-md-5 col-xs-12">
+			<br>
+			<br>
+				<p id="para1">As you can imagine, the mantle of the Flash, has been taken up by many characters in the DC Universe. The characters to take the Flash's mantle are</p> 
+				<ol>
+					<li>Jay Garrick</li>
+					<li>Barry Allen</li>
+					<li>Wally West</li>
+					<li>Bart Allen</li>
+				</ol>
+				<p id="para1">For more info on each of their origins, <a href="origin">Click Here</a></p>
+			</div>
+		</div>
+
 </body>
 </html>
