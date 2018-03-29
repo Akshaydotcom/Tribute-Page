@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link href="bootstrap.css" rel="stylesheet">
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript">
+	var a=angular.module("App",[]);
+	a.controller("ctrl",function($scope,$http){
+		$scope.SuperheroForm={};
+		$scope.SuperheroForm.Fav_Superhero=null;
+		$scope.SuperheroForm.dateOfRide=null;
+		$scope.SuperheroForm.noOfPeople=null;
+		$scope.SuperheroForm.contact=null;
+		$scope.submitForm=function(){
+			alert($scope.SuperheroForm.Fav_Superhero+"   "+$scope.SuperheroForm.dateOfRide+"   "+
+					$scope.SuperheroForm.noOfPeople+"  "+$scope.SuperheroForm.contact+" ")
+		}
+		$scope.populateList=function(){
+			$http.get("SuperHeroList.txt").then(function(response){
+				console.log(response.data)
+				$scope.SuperHeroList=response.data
+			},function(response){
+				$scope.message="Sorry";
+			})
+		}
+	})
+</script>
+<title>Origin Story</title>
+</head>
+<body ng-app="App" ng-controller="ctrl">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4" ng-init="populateList()">
+			<form ng-submit="submitForm()">
+				<h2>Enter your Favorite superhero From</h2>
+				<div class="form-group">
+				<label>DC Universe</label>
+				<select class="form-control" ng-model="SuperheroForm.Fav_Superhero" >
+				<option value="">--Select--</option>
+				<option  ng-repeat="i in SuperHeroList" value="{{i}}">{{i}}</option>
+				</select>
+				<!-- <option value="The Flash">The Flash</option>
+				<option value="Batman">Batman</option>
+				<option value="Superman">Superman</option>
+				<option value="Wonder Woman">Wonder Woman</option>
+				<option value="Green Lantern">Green Lantern</option>
+				<option value="HawkGirl">HawkGirl</option>
+				<option value="Martian Man-Hunter">Martian Man-Hunter</option>
+				<option value="Cyborg">Cyborg</option>
+				<option value="Shazam">Shazam</option> -->
+				</div>
+				<div ng-show="SuperheroForm.Fav_Superhero">You have chosen <span style="color:blue" ng-bind="SuperheroForm.Fav_Superhero"></span></div>
+				
+				<div class="form-group">
+				<label>DC Universe</label>
+				<input type="date" name="SuperheroForm.dateOfRide" ng-model="SuperheroForm.dateOfRide" class="form-control">
+				<div ng-show="SuperheroForm.dateOfRide">Date of Ride <span ng-bind="SuperheroForm.dateOfRide"></span></div>
+				</div>
+				
+				<div class="form-group">
+					<label>DC Universe</label>
+					<input type="number" name="SuperheroForm.noOfPeople" ng-model="SuperheroForm.noOfPeople" ng-change="cost=SuperheroForm.noOfPeople*175" min="-10" max="100" class="form-control">
+					<div ng-show="SuperheroForm.noOfPeople">
+						People: <span ng-bind="SuperheroForm.noOfPeople"></span><br>Cost:<span ng-bind="cost"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>DC Universe</label>
+					<input type="number" name="SuperheroForm.contact" ng-model="SuperheroForm.contact" min="100000000" max="9999999999" class="form-control">
+					<div ng-show="SuperheroForm.contact">
+						Contact: <span ng-bind="SuperheroForm.contact"></span>
+					</div>
+				</div>
+				<button type="submit"> Click Me</button>
+				<!-- <div class="form-group" ng-init="listOfFlashes=['The Golden Age-Jay Garrick','The Silver age-Barry Allen','The Cousin-Wally West','The Futurist-Bart Allen']">
+					<label>Flashes Thru the ages</label>
+					<label class="radio-inline" ng-repeat="i in listOfFlashes">
+						<input type="radio" name="listOfFlashes" value="{{i}}" ng-model="$parent.lof">{{i}}
+					</label>
+						<br>
+						<div class="row">
+								{{lof}}
+						</div>
+				</div>  -->
+				<!-- <div class="form-group" ng-init="listOfCity=['Mangalore','Bangalore','Chennai','Mumbai']">
+					<label>Tour City</label>
+					<label class="radio-inline" ng-repeat="i in listOfCity">
+						<input type="radio" name="listOfCity" ng-value="i" ng-model="$parent.loc">{{i}}						
+					</label>
+				<div ng-switch=loc>
+				<div ng-switch-when="Mangalore" ng-init="$parent.code='004'"></div>
+				<div ng-switch-when="Bangalore" ng-init="$parent.code='080'"></div>
+				<div ng-switch-when="Chennai" ng-init="$parent.code='044'"></div>
+				<div ng-switch-when="Mumbai" ng-init="$parent.code='0495'"></div>
+				</div>
+				<input type="number" size="2" ng-value="code" name="{{code}}">
+				<input type="number" ng-model="contact">
+				<div>
+					<input type="checkbox" name="food" ng-model="check1">Food to be included?
+					<p ng-if=check1==true>Trip cost: 200+100(for food)</p>
+					<p ng-if=check1==false>Trip cost: 200</p>
+				</div> -->
+				</form>
+		</div>
+	</div>
+</body>
+</html>
